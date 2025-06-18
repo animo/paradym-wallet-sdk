@@ -1,0 +1,42 @@
+{
+	"name": "@paradym/wallet-sdk",
+	"version": "0.0.0",
+	"description": "Mobile Wallet SDK",
+	"author": "Animo Solutions",
+	"license": "Apache-2.0",
+	"packageManager": "pnpm@10.8.1",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/animo/paradym-wallet-sdk"
+	},
+	"files": [
+		"dist"
+	],
+	"publishConfig": {
+		"main": "./dist/index.js",
+		"module": "./dist/index.mjs",
+		"types": "./dist/index.d.ts",
+		"exports": {
+			".": {
+				"import": "./dist/index.mjs",
+				"require": "./dist/index.js",
+				"types": "./dist/index.d.ts"
+			},
+			"./package.json": "./package.json"
+		}
+	},
+	"scripts": {
+		"types:check": "tsc --noEmit",
+		"style:check": "biome check --unsafe",
+		"style:fix": "biome check --write --unsafe",
+		"build": "tsup src/index.ts --format cjs,esm --dts --clean --sourcemap",
+		"release": "pnpm build && pnpm changeset publish --no-git-tag",
+		"changeset-version": "pnpm changeset version && pnpm style:fix"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "~2.0.0",
+		"@changesets/cli": "^2.29.4",
+		"tsup": "^8.5.0",
+		"typescript": "~5.8.3"
+	}
+}
